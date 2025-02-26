@@ -1,5 +1,9 @@
 using FluentValidation.AspNetCore;
 using HR_Medical_Records_Management_System.Context;
+using HR_Medical_Records_Management_System.Dtos.Request;
+using HR_Medical_Records_Management_System.Models;
+using HR_Medical_Records_Management_System.Repositories.Implementation;
+using HR_Medical_Records_Management_System.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -11,6 +15,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+//scopes 
+builder.Services.AddScoped<IRepository<TMedicalRecord, int, DeleteMedicalRecordDto>, MedicalRecordRepositoryImpl>();
+builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepositoryImpl>();
+
 
 //Config of DbContext
 builder.Services.AddDbContext<HRMedicalRecordsContext>(opt =>
