@@ -10,12 +10,10 @@ namespace HR_Medical_Records_Management_System.Repositories.Implementation
     public class MedicalRecordRepositoryImpl : IMedicalRecordRepository
     {
         private readonly HRMedicalRecordsContext _context;
-        private readonly IMapper _mapper;
 
-        public MedicalRecordRepositoryImpl(HRMedicalRecordsContext context, IMapper mapper)
+        public MedicalRecordRepositoryImpl(HRMedicalRecordsContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<TMedicalRecord> CreateAsync(TMedicalRecord entity)
@@ -25,14 +23,13 @@ namespace HR_Medical_Records_Management_System.Repositories.Implementation
             return entity;
         }
 
-        public async Task<TMedicalRecord> DeleteAsync(DeleteMedicalRecordDto recordToDelete)
+        public async Task<TMedicalRecord> DeleteAsync(TMedicalRecord recordToDelete)
         {
-            TMedicalRecord entity = await _context.TMedicalRecords.FindAsync(recordToDelete.MedicalRecordId)
 
-            _context.TMedicalRecords.Update(_mapper.Map(recordToDelete, entity));
+            _context.TMedicalRecords.Update(recordToDelete);
             await _context.SaveChangesAsync();
 
-            return entity;
+            return recordToDelete;
         }
 
         public async Task<TMedicalRecord> GetByIdAsync(int id)

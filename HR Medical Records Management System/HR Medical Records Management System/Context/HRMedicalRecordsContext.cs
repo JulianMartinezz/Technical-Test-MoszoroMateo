@@ -60,7 +60,7 @@ public partial class HRMedicalRecordsContext : DbContext
 
             entity.ToTable("t_medical_record");
 
-            entity.Property(e => e.MedicalRecordId).HasColumnName("medical_record_id");
+            entity.Property(e => e.MedicalRecordId).HasColumnName("medical_record_id").ValueGeneratedOnAdd();
             entity.Property(e => e.AreaChange)
                 .HasMaxLength(2)
                 .HasColumnName("area_change");

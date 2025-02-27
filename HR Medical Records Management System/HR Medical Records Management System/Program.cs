@@ -21,9 +21,9 @@ builder.Services.AddSwaggerGen();
 
 
 //scopes 
-builder.Services.AddScoped<IBaseRepository<TMedicalRecord, int, DeleteMedicalRecordDto>, MedicalRecordRepositoryImpl>();
+builder.Services.AddScoped<IBaseRepository<TMedicalRecord, int>, MedicalRecordRepositoryImpl>();
 builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepositoryImpl>();
-builder.Services.AddScoped<IBaseService<BaseResponse<TMedicalRecord>, int, PostMedicalRecordDto, DeleteMedicalRecordDto>, MedicalRecordServiceImpl>();
+builder.Services.AddScoped<IBaseService<BaseResponse<TMedicalRecord>, int, PostMedicalRecordDto,UpdateMedicalRecordDto, DeleteMedicalRecordDto>, MedicalRecordServiceImpl>();
 builder.Services.AddScoped<IMedicalRecordService, MedicalRecordServiceImpl>();
 
 
