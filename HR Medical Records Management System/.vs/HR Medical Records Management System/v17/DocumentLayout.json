@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|e:\\facultad\\examen tecnico trasus\\technical-test-moszoromateo\\hr medical records management system\\hr medical records management system\\repositories\\implementation\\medicalrecordrepositoryimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|solutionrelative:hr medical records management system\\repositories\\implementation\\medicalrecordrepositoryimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|e:\\facultad\\examen tecnico trasus\\technical-test-moszoromateo\\hr medical records management system\\hr medical records management system\\services\\implementation\\medicalrecordserviceimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|solutionrelative:hr medical records management system\\services\\implementation\\medicalrecordserviceimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|e:\\facultad\\examen tecnico trasus\\technical-test-moszoromateo\\hr medical records management system\\hr medical records management system\\repositories\\interfaces\\imedicalrecordrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|solutionrelative:hr medical records management system\\repositories\\interfaces\\imedicalrecordrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|e:\\facultad\\examen tecnico trasus\\technical-test-moszoromateo\\hr medical records management system\\hr medical records management system\\models\\tmedicalrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|solutionrelative:hr medical records management system\\models\\tmedicalrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|e:\\facultad\\examen tecnico trasus\\technical-test-moszoromateo\\hr medical records management system\\hr medical records management system\\context\\hrmedicalrecordscontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|solutionrelative:hr medical records management system\\context\\hrmedicalrecordscontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|e:\\facultad\\examen tecnico trasus\\technical-test-moszoromateo\\hr medical records management system\\hr medical records management system\\responses\\baseresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E362105-C682-46F2-8498-755B7EA8001C}|HR Medical Records Management System\\HR Medical Records Management System.csproj|solutionrelative:hr medical records management system\\responses\\baseresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,59 +17,39 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 310,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MedicalRecordServiceImpl.cs",
+              "DocumentMoniker": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Services\\Implementation\\MedicalRecordServiceImpl.cs",
+              "RelativeDocumentMoniker": "HR Medical Records Management System\\Services\\Implementation\\MedicalRecordServiceImpl.cs",
+              "ToolTip": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Services\\Implementation\\MedicalRecordServiceImpl.cs",
+              "RelativeToolTip": "HR Medical Records Management System\\Services\\Implementation\\MedicalRecordServiceImpl.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAgwCYAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T00:34:32.645Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 180,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "IMedicalRecordRepository.cs",
-              "DocumentMoniker": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Repositories\\Interfaces\\IMedicalRecordRepository.cs",
-              "RelativeDocumentMoniker": "HR Medical Records Management System\\Repositories\\Interfaces\\IMedicalRecordRepository.cs",
-              "ToolTip": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Repositories\\Interfaces\\IMedicalRecordRepository.cs",
-              "RelativeToolTip": "HR Medical Records Management System\\Repositories\\Interfaces\\IMedicalRecordRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAjAAAA",
+              "Title": "BaseResponse.cs",
+              "DocumentMoniker": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Responses\\BaseResponse.cs",
+              "RelativeDocumentMoniker": "HR Medical Records Management System\\Responses\\BaseResponse.cs",
+              "ToolTip": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Responses\\BaseResponse.cs",
+              "RelativeToolTip": "HR Medical Records Management System\\Responses\\BaseResponse.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-26T19:52:11.294Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MedicalRecordRepositoryImpl.cs",
-              "DocumentMoniker": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Repositories\\Implementation\\MedicalRecordRepositoryImpl.cs",
-              "RelativeDocumentMoniker": "HR Medical Records Management System\\Repositories\\Implementation\\MedicalRecordRepositoryImpl.cs",
-              "ToolTip": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Repositories\\Implementation\\MedicalRecordRepositoryImpl.cs",
-              "RelativeToolTip": "HR Medical Records Management System\\Repositories\\Implementation\\MedicalRecordRepositoryImpl.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFUAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-26T18:25:14.68Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TMedicalRecord.cs",
-              "DocumentMoniker": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Models\\TMedicalRecord.cs",
-              "RelativeDocumentMoniker": "HR Medical Records Management System\\Models\\TMedicalRecord.cs",
-              "ToolTip": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Models\\TMedicalRecord.cs",
-              "RelativeToolTip": "HR Medical Records Management System\\Models\\TMedicalRecord.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAAwDUAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-26T18:20:52.998Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "HRMedicalRecordsContext.cs",
-              "DocumentMoniker": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Context\\HRMedicalRecordsContext.cs",
-              "RelativeDocumentMoniker": "HR Medical Records Management System\\Context\\HRMedicalRecordsContext.cs",
-              "ToolTip": "E:\\fACULTAD\\Examen Tecnico Trasus\\Technical-Test-MoszoroMateo\\HR Medical Records Management System\\HR Medical Records Management System\\Context\\HRMedicalRecordsContext.cs",
-              "RelativeToolTip": "HR Medical Records Management System\\Context\\HRMedicalRecordsContext.cs",
-              "ViewState": "AQIAAG4AAAAAAAAAAAAuwCYAAAAiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-26T16:23:38.834Z",
+              "WhenOpened": "2025-02-27T00:41:22.762Z",
               "EditorCaption": ""
             }
           ]

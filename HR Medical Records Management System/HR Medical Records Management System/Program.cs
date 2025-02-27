@@ -4,6 +4,9 @@ using HR_Medical_Records_Management_System.Dtos.Request;
 using HR_Medical_Records_Management_System.Models;
 using HR_Medical_Records_Management_System.Repositories.Implementation;
 using HR_Medical_Records_Management_System.Repositories.Interfaces;
+using HR_Medical_Records_Management_System.Responses;
+using HR_Medical_Records_Management_System.Services.Implementation;
+using HR_Medical_Records_Management_System.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -18,8 +21,10 @@ builder.Services.AddSwaggerGen();
 
 
 //scopes 
-builder.Services.AddScoped<IRepository<TMedicalRecord, int, DeleteMedicalRecordDto>, MedicalRecordRepositoryImpl>();
+builder.Services.AddScoped<IBaseRepository<TMedicalRecord, int, DeleteMedicalRecordDto>, MedicalRecordRepositoryImpl>();
 builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepositoryImpl>();
+builder.Services.AddScoped<IBaseService<BaseResponse<TMedicalRecord>, int, PostMedicalRecordDto, DeleteMedicalRecordDto>, MedicalRecordServiceImpl>();
+builder.Services.AddScoped<IMedicalRecordService, MedicalRecordServiceImpl>();
 
 
 //Config of DbContext

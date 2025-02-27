@@ -1,4 +1,5 @@
-﻿using HR_Medical_Records_Management_System.Context;
+﻿using AutoMapper;
+using HR_Medical_Records_Management_System.Context;
 using HR_Medical_Records_Management_System.Dtos.Request;
 using HR_Medical_Records_Management_System.Models;
 using HR_Medical_Records_Management_System.Repositories.Interfaces;
@@ -9,6 +10,13 @@ namespace HR_Medical_Records_Management_System.Repositories.Implementation
     public class MedicalRecordRepositoryImpl : IMedicalRecordRepository
     {
         private readonly HRMedicalRecordsContext _context;
+        private readonly IMapper _mapper;
+
+        public MedicalRecordRepositoryImpl(HRMedicalRecordsContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
 
         public async Task<TMedicalRecord> CreateAsync(TMedicalRecord entity)
         {
@@ -21,14 +29,7 @@ namespace HR_Medical_Records_Management_System.Repositories.Implementation
         {
             TMedicalRecord entity = await _context.TMedicalRecords.FindAsync(recordToDelete.MedicalRecordId);
 
-            if(entity == null)
-            {
-                return null;
-            }
-
-            entity.DeletionDate = DateOnly.FromDateTime(DateTime.UtcNow);
-            entity.DeletedBy = recordToDelete.deletedBy;
-            entity.DeletionReason = recordToDelete.deletionReason;
+            _mapper.Map(recordToDelete, entity);
 
             _context.TMedicalRecords.Update(entity);
             await _context.SaveChangesAsync();
@@ -75,12 +76,13 @@ namespace HR_Medical_Records_Management_System.Repositories.Implementation
                 .Take(filtersDto.pageSize)
                 .ToListAsync();
 
-
             return (lMedicalRecords,totalRows);
         }
 
         public async Task<TMedicalRecord> UpdateAsync(TMedicalRecord entity)
         {
+            TMedicalRecord recordDeleted = await _context.TMedicalRecords.FindAsync(entity.MedicalRecordId);
+
             _context.TMedicalRecords.Update(entity);
             await _context.SaveChangesAsync();
             return entity;
