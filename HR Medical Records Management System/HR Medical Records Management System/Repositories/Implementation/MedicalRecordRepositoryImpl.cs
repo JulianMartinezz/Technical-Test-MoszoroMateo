@@ -27,11 +27,9 @@ namespace HR_Medical_Records_Management_System.Repositories.Implementation
 
         public async Task<TMedicalRecord> DeleteAsync(DeleteMedicalRecordDto recordToDelete)
         {
-            TMedicalRecord entity = await _context.TMedicalRecords.FindAsync(recordToDelete.MedicalRecordId);
+            TMedicalRecord entity = await _context.TMedicalRecords.FindAsync(recordToDelete.MedicalRecordId)
 
-            _mapper.Map(recordToDelete, entity);
-
-            _context.TMedicalRecords.Update(entity);
+            _context.TMedicalRecords.Update(_mapper.Map(recordToDelete, entity));
             await _context.SaveChangesAsync();
 
             return entity;
@@ -81,8 +79,6 @@ namespace HR_Medical_Records_Management_System.Repositories.Implementation
 
         public async Task<TMedicalRecord> UpdateAsync(TMedicalRecord entity)
         {
-            TMedicalRecord recordDeleted = await _context.TMedicalRecords.FindAsync(entity.MedicalRecordId);
-
             _context.TMedicalRecords.Update(entity);
             await _context.SaveChangesAsync();
             return entity;

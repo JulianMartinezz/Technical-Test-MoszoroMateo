@@ -6,7 +6,9 @@
         public string Diagnosis { get; set; }
         public int MedicalRecordTypeId { get; set; }
         public string CreatedBy { get; set; }
+        public DateOnly StartDate { get; set; }
 
+        public DateOnly? EndDate { get; set; }
         public string? Audiometry { get; set; }
         public string? PositionChange { get; set; }
         public string? MotherData { get; set; }

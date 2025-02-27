@@ -21,22 +21,45 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
         }
 
         public async Task<BaseResponse<TMedicalRecord>> GetByIdAsync(int id)
-        {
+        { 
             try{
-                TMedicalRecord data = await _medicalRecordRepository.GetByIdAsync(id);
+                TMedicalRecord dataValue = await _medicalRecordRepository.GetByIdAsync(id);
+                List<TMedicalRecord> data = new List<TMedicalRecord>();
+                data.Add(dataValue);
                 BaseResponse<TMedicalRecord> response = new BaseResponse<TMedicalRecord>(data,"Registro Encontrado",200,1);
                 return response;
             }
-            catch(Exception e)
+            catch (KeyNotFoundException e)
             {
-                BaseResponse<TMedicalRecord> response = new BaseResponse<TMedicalRecord>("Registro no encontrado",404,e.Message);
+                BaseResponse<TMedicalRecord> response = new BaseResponse<TMedicalRecord>("Registro no encontrado", 404, e.Message);
+                return response;
+            }
+            catch (Exception e)
+            {
+                BaseResponse<TMedicalRecord> response = new BaseResponse<TMedicalRecord>("Error interno del servidor", 500, e.Message);
                 return response;
             }
         }
 
-        public Task<List<BaseResponse<TMedicalRecord>>> GetListAsync()
+        public async Task<BaseResponse<TMedicalRecord>> GetListAsync()
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                List<TMedicalRecord> data = await _medicalRecordRepository.GetListAsync();
+                BaseResponse<TMedicalRecord> response = new BaseResponse<TMedicalRecord>(data,"Registros Encontrados",200,data.Count);
+                return response;
+            }
+            catch (KeyNotFoundException e)
+            {
+                BaseResponse<TMedicalRecord> response = new BaseResponse<TMedicalRecord>("Registro no encontrado", 404, e.Message);
+                return response;
+            }
+            catch (Exception e)
+            {
+                BaseResponse<TMedicalRecord> response = new BaseResponse<TMedicalRecord>("Error interno del servidor", 500, e.Message);
+                return response;
+            }
         }
 
         public Task<BaseResponse<TMedicalRecord>> GetMedicalRecordsFiltered(MedicalRecordsFiltersDto filtersDto)

@@ -12,6 +12,6 @@ namespace HR_Medical_Records_Management_System.Services.Interface
         Task<BaseResponse> PutAsync(UpdateDto updateDto);
         Task<BaseResponse> DeleteAsync(DeleteDto deleteDto);
         Task<BaseResponse> GetByIdAsync(TKey id);
-        Task<List<BaseResponse>> GetListAsync();
+        Task<BaseResponse> GetListAsync();
     }
 }
