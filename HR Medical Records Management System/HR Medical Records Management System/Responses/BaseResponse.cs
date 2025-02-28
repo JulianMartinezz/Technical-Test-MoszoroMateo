@@ -4,7 +4,7 @@
     {
         public bool? Success { get; set; }
         public string? Message { get; set; }
-        public List<T?> Data { get; set; }
+        public T? Data { get; set; }
         public int? Code { get; set; }
         public int? TotalRows { get; set; }
         public string? Exception { get; set; }
@@ -13,7 +13,7 @@
         public BaseResponse(){}
 
         //constructor for success response
-        public BaseResponse(List<T> data, string message, int code, int totalRows)
+        public BaseResponse(T data, string message, int code, int totalRows)
         {
             Success= true;
             Data= data;

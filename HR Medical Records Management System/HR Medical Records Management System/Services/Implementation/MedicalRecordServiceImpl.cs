@@ -52,6 +52,10 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
             }
 
             TMedicalRecord dataValue = await _medicalRecordRepository.GetByIdAsync(deleteDto.MedicalRecordId);
+            if(dataValue == null)
+            {
+                return new BaseResponse<TMedicalRecord>("Registro no encontrado", 404, "No se encontró un registro con el ID proporcionado."); ;
+            }
             if (dataValue.StatusId.Equals(2))
             {
                 return new BaseResponse<TMedicalRecord>("Registro ya se encuentra eliminado", 400, "El registro ya ha sido eliminado"); ;
@@ -61,16 +65,10 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
             {
                 _mapper.Map(deleteDto, dataValue);
 
-                TMedicalRecord dataResponse = await _medicalRecordRepository.DeleteAsync(dataValue);
+                TMedicalRecord data = await _medicalRecordRepository.DeleteAsync(dataValue);
 
-                List<TMedicalRecord> data = new List<TMedicalRecord>();
-                data.Add(dataResponse);
 
                 return new BaseResponse<TMedicalRecord>(data, "Registro Eliminado", 200, 1); ;
-            }
-            catch (KeyNotFoundException e)
-            {
-                return new BaseResponse<TMedicalRecord>("Registro no encontrado", 404, e.Message); ;
             }
             catch (Exception e)
             {
@@ -107,10 +105,9 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
                     return new BaseResponse<TMedicalRecord>("Registro no encontrado", 404, "No se encontró un registro con el ID proporcionado.");
                 }
 
-                List<TMedicalRecord> data = new List<TMedicalRecord>();
-                data.Add(dataValue);
 
-                return new BaseResponse<TMedicalRecord>(data, "Registro Encontrado", 200, 1); ;
+
+                return new BaseResponse<TMedicalRecord>(dataValue, "Registro Encontrado", 200, 1); ;
             }
             catch (KeyNotFoundException e)
             {
@@ -135,20 +132,20 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
         // 1. Attempts to fetch the list of records from the repository.
         // 2. If records are found, returns them in the response with a success message and the count of records.
         // 3. If no records are found or an error occurs, handles exceptions such as `KeyNotFoundException` and general exceptions, providing appropriate error messages
-        public async Task<BaseResponse<TMedicalRecord>> GetListAsync()
+        public async Task<BaseResponse<List<TMedicalRecord>>> GetListAsync()
         {
             try
             {
                 List<TMedicalRecord> data = await _medicalRecordRepository.GetListAsync();
-                return new BaseResponse<TMedicalRecord>(data, "Registros Encontrados", 200, data.Count); ;
+                return new BaseResponse<List<TMedicalRecord>>(data, "Registros Encontrados", 200, data.Count); ;
             }
             catch (KeyNotFoundException e)
             {
-                return new BaseResponse<TMedicalRecord>("Registro no encontrado", 404, e.Message); ;
+                return new BaseResponse<List<TMedicalRecord>>("Registro no encontrado", 404, e.Message); ;
             }
             catch (Exception e)
             {
-                return new BaseResponse<TMedicalRecord>("Error interno del servidor", 500, e.Message); ;
+                return new BaseResponse<List<TMedicalRecord>>("Error interno del servidor", 500, e.Message); ;
             }
         }
 

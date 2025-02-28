@@ -10,7 +10,7 @@ namespace HR_Medical_Records_Management_System.Configs
         //this method turns the DateOnly type into a string with the format "date"
         public void Apply(OpenApiSchema schema, SchemaFilterContext context)
         {
-            // Verifica si el tipo es DateOnly
+            // verify if the type is DateOnly
             if (context.Type == typeof(DateOnly))
             {
                 schema.Type = "string";

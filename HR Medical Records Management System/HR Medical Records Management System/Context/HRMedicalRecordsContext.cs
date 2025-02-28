@@ -5,23 +5,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HR_Medical_Records_Management_System.Context;
 
+//This class is used to configure the database context
 public partial class HRMedicalRecordsContext : DbContext
 {
+    //This constructor is used to create a new instance of the context
     public HRMedicalRecordsContext()
     {
     }
 
+    //This constructor is used to create a new instance of the context with options
     public HRMedicalRecordsContext(DbContextOptions<HRMedicalRecordsContext> options)
         : base(options)
     {
     }
 
+    //all this properties are used to create the tables in the database
     public virtual DbSet<MedicalRecordType> MedicalRecordTypes { get; set; }
 
     public virtual DbSet<Status> Statuses { get; set; }
 
     public virtual DbSet<TMedicalRecord> TMedicalRecords { get; set; }
 
+    //This method is used to configure the database context with fluent API
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<MedicalRecordType>(entity =>
