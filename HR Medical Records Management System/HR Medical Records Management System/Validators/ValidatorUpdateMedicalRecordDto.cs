@@ -98,11 +98,6 @@ namespace HR_Medical_Records_Management_System.Validators
                 .MaximumLength(200).When(src => src.MedicalBoard != null).WithMessage("has exceeded the maximum number of characters allowed");
 
 
-            //ensure that it does not exceed the maximum number of characters allowed
-            RuleFor(dto => dto.DeletionReason)
-                .MaximumLength(2000).When(src => src.DeletionReason != null).WithMessage("has exceeded the maximum number of characters allowed");
-
-
             //ensure that it is not null and empty when PositionChange is "YES", not empty and does not exceed the maximum number of characters allowed
             RuleFor(dto => dto.Observations)
                 .NotNull().WithMessage("Observations must not be null").When(dto => dto.PositionChange.ToUpper().Equals("Y"))

@@ -57,7 +57,7 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
             {
                 return BaseResponse<TMedicalRecord>.NotFoundResponse();
             }
-            else if (deleted.Status.Equals(2))
+            if (deleted.StatusId.Equals(2))
             {
                 return BaseResponse<TMedicalRecord>.BadRequestResponse("Tried to Delete a DeletedRecord");
             }
@@ -176,7 +176,7 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
             {
                 return BaseResponse<TMedicalRecord>.NotFoundResponse();
             }
-            if (data.MedicalRecordId.Equals(2))
+            if (data.StatusId.Equals(2))
             {
                 return BaseResponse<TMedicalRecord>.BadRequestResponse("Tried to Update a DeletedRecord");
             }

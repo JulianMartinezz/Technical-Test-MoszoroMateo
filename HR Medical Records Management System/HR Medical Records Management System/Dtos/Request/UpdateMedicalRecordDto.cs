@@ -20,7 +20,6 @@
         public int? MedicalRecordTypeId { get; set; }
         public string? Disability { get; set; }
         public string? MedicalBoard { get; set; }
-        public string? DeletionReason { get; set; }
         public string? Observations { get; set; }
         public decimal? DisabilityPercentage { get; set; }
         public string? AreaChange { get; set; }
