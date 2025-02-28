@@ -50,11 +50,16 @@ namespace HR_Medical_Records_Management_System.Repositories.Implementation
             {
                 query = query.Where(x => x.StatusId.Equals(filtersDto.statusId));
             }
-            if(filtersDto.startDate.HasValue)
+            if (filtersDto.startDate.HasValue && filtersDto.endDate.HasValue)
+            {
+                query = query.Where(x => x.StartDate >= filtersDto.startDate.Value &&
+                           (x.EndDate == null || x.EndDate <= filtersDto.endDate.Value));
+            }
+            else if (filtersDto.startDate.HasValue)
             {
                 query = query.Where(x => x.StartDate >= filtersDto.startDate.Value);
             }
-            if (filtersDto.endDate.HasValue)
+            else if (filtersDto.endDate.HasValue)
             {
                 query = query.Where(x => x.EndDate <= filtersDto.endDate.Value);
             }

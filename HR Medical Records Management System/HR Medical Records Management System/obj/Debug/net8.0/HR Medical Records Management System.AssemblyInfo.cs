@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HR Medical Records Management System")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2358e02fe1b5ee527c23604eb464030c9434a27")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+82725d567acded260dfbe8364097df82d32f0177")]
 [assembly: System.Reflection.AssemblyProductAttribute("HR Medical Records Management System")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HR Medical Records Management System")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

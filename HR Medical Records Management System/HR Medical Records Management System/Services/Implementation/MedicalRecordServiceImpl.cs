@@ -32,259 +32,128 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
             _mapper = mapper;
         }
 
-
-
-
-
-
-        // Asynchronously deletes a medical record.
-        // Steps:
-        // 1. Validates the input data using FluentValidation.
-        // 2. Checks if the record exists and if it has already been deleted.
-        // 3. Attempts to delete the record using the repository.
-        // 4. Handles possible exceptions, such as record not found or internal errors.
         public async Task<BaseResponse<TMedicalRecord>> DeleteAsync(DeleteMedicalRecordDto deleteDto)
         {
             var validate = _DeleteValidator.Validate(deleteDto);
             if(!validate.IsValid)
             {
-                return new BaseResponse<TMedicalRecord>("Datos no validos", 400, validate.Errors.ToString()); ;
+                return BaseResponse<TMedicalRecord>.BadRequestResponse(validate.Errors.ToString());
             }
 
-            TMedicalRecord dataValue = await _medicalRecordRepository.GetByIdAsync(deleteDto.MedicalRecordId);
-            if(dataValue == null)
+            TMedicalRecord deleted = await _medicalRecordRepository.GetByIdAsync(deleteDto.MedicalRecordId);
+            if (deleted == null) 
             {
-                return new BaseResponse<TMedicalRecord>("Registro no encontrado", 404, "No se encontró un registro con el ID proporcionado."); ;
+                return BaseResponse<TMedicalRecord>.NotFoundResponse();
             }
-            if (dataValue.StatusId.Equals(2))
+            else if (deleted.Status.Equals(2))
             {
-                return new BaseResponse<TMedicalRecord>("Registro ya se encuentra eliminado", 400, "El registro ya ha sido eliminado"); ;
+                return BaseResponse<TMedicalRecord>.BadRequestResponse("Tried to Delete a DeletedRecord");
             }
 
             try
             {
-                _mapper.Map(deleteDto, dataValue);
-
-                TMedicalRecord deleted = await _medicalRecordRepository.DeleteAsync(dataValue);
-                List<TMedicalRecord> data = new List<TMedicalRecord>();
-                data.Add(deleted);
-
-                return new BaseResponse<TMedicalRecord>(data, "Registro Eliminado", 200, 1); ;
+                _mapper.Map(deleteDto, deleted);
+                return BaseResponse<TMedicalRecord>.SuccessResponse(deleted, 1);
             }
             catch (Exception e)
             {
-                return new BaseResponse<TMedicalRecord>("Error interno del servidor", 500, e.Message);
+                return BaseResponse<TMedicalRecord>.ErrorResponse(e.Message);
             }
+
+
+
         }
-
-
-
-
-
-
-        // Asynchronously retrieves a medical record by its ID.
-        // Steps:
-        // 1. Validates that the provided ID is greater than 0.
-        // 2. Attempts to fetch the record from the repository using the provided ID.
-        // 3. If the record is not found, returns a response indicating the record was not found.
-        // 4. If the record is found, adds it to a list and returns it in the response.
-        // 5. Handles specific exceptions such as `KeyNotFoundException` and general exceptions, providing appropriate error messages.
 
         public async Task<BaseResponse<TMedicalRecord>> GetByIdAsync(int id)
         {
-            if (id == 0)
+            if(id == 0)
             {
-                return new BaseResponse<TMedicalRecord>("Datos no validos", 400, "El Id del registro debe ser mayo a 0");
+                return BaseResponse<TMedicalRecord>.BadRequestResponse("Id can't be 0");
             }
 
             try
             {
-                TMedicalRecord dataValue = await _medicalRecordRepository.GetByIdAsync(id);
-
-                if (dataValue == null)
+                TMedicalRecord data = await _medicalRecordRepository.GetByIdAsync(id);
+                if (data == null)
                 {
-                    return new BaseResponse<TMedicalRecord>("Registro no encontrado", 404, "No se encontró un registro con el ID proporcionado.");
+                    return BaseResponse<TMedicalRecord>.NotFoundResponse();
                 }
-
-                List<TMedicalRecord> data = new List<TMedicalRecord>();
-                data.Add(dataValue);
-
-                return new BaseResponse<TMedicalRecord>(data, "Registro Encontrado", 200, 1); ;
+                return BaseResponse<TMedicalRecord>.SuccessResponse(data, 1);
             }
-            catch (KeyNotFoundException e)
+            catch(Exception e)
             {
-                return new BaseResponse<TMedicalRecord>("Registro no encontrado", 404, e.Message); ;
-            }
-            catch (Exception e)
-            {
-                return new BaseResponse<TMedicalRecord>("Error interno del servidor", 500, e.Message); ;
+                return BaseResponse<TMedicalRecord>.ErrorResponse(e.Message);
             }
         }
 
-
-
-
-
-
-
-
-
-        // Asynchronously retrieves a list of medical records.
-        // Steps:
-        // 1. Attempts to fetch the list of records from the repository.
-        // 2. If records are found, returns them in the response with a success message and the count of records.
-        // 3. If no records are found or an error occurs, handles exceptions such as `KeyNotFoundException` and general exceptions, providing appropriate error messages
-        public async Task<BaseResponse<TMedicalRecord>> GetListAsync()
+        public async Task<BaseResponse<List<TMedicalRecord>>> GetFilteredListAsync(MedicalRecordsFiltersDto filters)
         {
-            try
-            {
-                List<TMedicalRecord> data = await _medicalRecordRepository.GetListAsync();
-                return new BaseResponse<TMedicalRecord>(data, "Registros Encontrados", 200, data.Count); ;
-            }
-            catch (KeyNotFoundException e)
-            {
-                return new BaseResponse<TMedicalRecord>("Registro no encontrado", 404, e.Message); ;
-            }
-            catch (Exception e)
-            {
-                return new BaseResponse<TMedicalRecord>("Error interno del servidor", 500, e.Message); ;
-            }
-        }
-
-
-
-
-
-
-
-        // Asynchronously retrieves medical records with filters applied.
-        // Steps:
-        // 1. Validates the input filters using FluentValidation.
-        // 2. If the validation fails, returns a response indicating invalid data with the validation errors.
-        // 3. Attempts to fetch the filtered records from the repository using the provided filters.
-        // 4. If the records are found, returns them in the response with a success message and the total count.
-        // 5. Handles exceptions such as `KeyNotFoundException` and general exceptions, providing appropriate error messages.
-        public async Task<BaseResponse<TMedicalRecord>> GetMedicalRecordsFiltered(MedicalRecordsFiltersDto filtersDto)
-        {
-            var validate = _FilterValidator.Validate(filtersDto);
+            var validate = _FilterValidator.Validate(filters);
             if (!validate.IsValid)
             {
-                return new BaseResponse<TMedicalRecord>("Datos no validos", 400, validate.Errors.ToString()); ;
+                return BaseResponse<List<TMedicalRecord>>.BadRequestResponse(validate.Errors.ToString());
             }
 
             try
             {
-                var data = await _medicalRecordRepository.GetMedicalRecordsWithFiltersAsync(filtersDto);
-                return new BaseResponse<TMedicalRecord>(data.Item1, "Registros Encontrados", 200, data.Item2); ;
-            }
-            catch (KeyNotFoundException e)
-            {
-                return new BaseResponse<TMedicalRecord>("Registros no encontrados", 404, e.Message); ;
+                var data = await _medicalRecordRepository.GetMedicalRecordsWithFiltersAsync(filters);
+
+                return BaseResponse<List<TMedicalRecord>>.SuccessResponse(data.Item1, data.Item2);
             }
             catch (Exception e)
             {
-                return new BaseResponse<TMedicalRecord>("Error interno del servidor", 500, e.Message); ;
+                return BaseResponse<List<TMedicalRecord>>.ErrorResponse(e.Message);
             }
         }
 
-
-
-
-
-
-
-
-
-        // Asynchronously creates a new medical record.
-        // Steps:
-        // 1. Validates the input data using FluentValidation.
-        // 2. If the validation fails, returns a response indicating invalid data with the validation errors.
-        // 3. Maps the input DTO to the `TMedicalRecord` entity using AutoMapper.
-        // 4. Attempts to create the new medical record in the repository.
-        // 5. If successful, returns the created record in the response with a success message.
-        // 6. Handles exceptions such as `KeyNotFoundException` and general exceptions, providing appropriate error messages.
         public async Task<BaseResponse<TMedicalRecord>> PostAsync(PostMedicalRecordDto createDto)
         {
             var validate = _PostValidator.Validate(createDto);
             if (!validate.IsValid)
             {
-                return new BaseResponse<TMedicalRecord>("Datos no validos", 400, validate.Errors.ToString()); ;
+                return BaseResponse<TMedicalRecord>.BadRequestResponse(validate.Errors.ToString());
             }
 
             try
             {
+                TMedicalRecord data = await _medicalRecordRepository.CreateAsync(_mapper.Map<TMedicalRecord>(createDto));
 
-                TMedicalRecord record = _mapper.Map<TMedicalRecord>(createDto);
-                TMedicalRecord dataValue = await _medicalRecordRepository.CreateAsync(record);
 
-                List<TMedicalRecord> data = new List<TMedicalRecord>();
-                data.Add(dataValue);
-
-                return new BaseResponse<TMedicalRecord>(data, "Registro Creado con exito", 200, 1); ;
+                return BaseResponse<TMedicalRecord>.SuccessResponse(data, 1);
             }
-            catch (KeyNotFoundException e)
+            catch(Exception e)
             {
-                return new BaseResponse<TMedicalRecord>("Registros no encontrados", 404, e.Message); ;
+                return BaseResponse<TMedicalRecord>.ErrorResponse(e.Message);
             }
-            catch (Exception e)
-            {
-                return new BaseResponse<TMedicalRecord>("Error interno del servidor", 500, e.Message); ;
-            }
-
         }
 
 
 
-
-
-
-
-
-
-        // Asynchronously updates an existing medical record.
-        // Steps:
-        // 1. Validates the input data using FluentValidation.
-        // 2. If the validation fails, returns a response indicating invalid data with the validation errors.
-        // 3. Attempts to retrieve the existing medical record from the repository using the provided ID.
-        // 4. Checks if the record is marked as deleted (StatusId equals 2), and if so, returns a response indicating it cannot be modified.
-        // 5. Maps the updated data from the DTO to the existing medical record entity.
-        // 6. Attempts to update the record in the repository.
-        // 7. If successful, returns the updated record in the response with a success message.
-        // 8. Handles exceptions such as `KeyNotFoundException` and general exceptions, providing appropriate error messages.
         public async Task<BaseResponse<TMedicalRecord>> PutAsync(UpdateMedicalRecordDto updateDto)
         {
             var validate = _UpdateValidator.Validate(updateDto);
-
-            if(!validate.IsValid)
+            if (!validate.IsValid)
             {
-                return new BaseResponse<TMedicalRecord>("Datos no validos", 400, validate.Errors.ToString()); ;
+                return BaseResponse<TMedicalRecord>.BadRequestResponse(validate.Errors.ToString());
             }
 
-            TMedicalRecord dataValue = await _medicalRecordRepository.GetByIdAsync(updateDto.MedicalRecordId);
-            if (dataValue.StatusId.Equals(2))
+            TMedicalRecord data = await _medicalRecordRepository.GetByIdAsync(updateDto.MedicalRecordId);
+            if (data == null)
             {
-                return new BaseResponse<TMedicalRecord>("Registro se encuentra eliminado", 400, "El registro no se puede modificar"); ;
+                return BaseResponse<TMedicalRecord>.NotFoundResponse();
+            }
+            if (data.MedicalRecordId.Equals(2))
+            {
+                return BaseResponse<TMedicalRecord>.BadRequestResponse("Tried to Update a DeletedRecord");
             }
 
             try
             {
-                _mapper.Map(updateDto, dataValue);
-                TMedicalRecord updatedData = await _medicalRecordRepository.UpdateAsync(dataValue);
-
-                List<TMedicalRecord> data = new List<TMedicalRecord>();
-                data.Add(updatedData);
-
-
-                return new BaseResponse<TMedicalRecord>(data, "Registro Actualizado con exito", 200, 1); ;
+                TMedicalRecord updated = await _medicalRecordRepository.UpdateAsync(_mapper.Map(updateDto,data));
+                return BaseResponse<TMedicalRecord>.SuccessResponse(updated, 1);
             }
-            catch (KeyNotFoundException e)
-            {
-                return new BaseResponse<TMedicalRecord>("Registros no encontrados", 404, e.Message); ;
-            }
-            catch (Exception e)
-            {
-                return new BaseResponse<TMedicalRecord>("Error interno del servidor", 500, e.Message); ;
-            }
+            catch (Exception e) { return BaseResponse<TMedicalRecord>.ErrorResponse(e.Message); }
+
         }
     }
 }

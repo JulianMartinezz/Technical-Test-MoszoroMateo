@@ -17,8 +17,7 @@ namespace HR_Medical_Records_Management_System.Validators
                 .LessThanOrEqualTo(DateOnly.FromDateTime(DateTime.UtcNow)).When(dto => dto.startDate.HasValue).WithMessage("startDate cannot be a future Date");
 
             //ensure that the endDate is not null and is greater than or equal to the startDate
-            RuleFor(dto=>dto.endDate).GreaterThanOrEqualTo(dto=>dto.startDate).When(dto => dto.endDate.HasValue).WithMessage("endDate cannot be earlier than startDate")
-                .GreaterThan(DateOnly.FromDateTime(DateTime.UtcNow)).When(dto => dto.endDate.HasValue).WithMessage("endDate cannot be a past Date");
+            RuleFor(dto => dto.endDate).GreaterThanOrEqualTo(dto => dto.startDate).When(dto => dto.endDate.HasValue).WithMessage("endDate cannot be earlier than startDate");
 
             //This rule is to check if the medicalRecordTypeId is either 1 or 2 (Actual Data in DB)
             RuleFor(dto => dto.medicalRecordTypeId).Must(id => id == 1 || id == 2).When(dto => dto.medicalRecordTypeId.HasValue).WithMessage("medicalRecordTypeId must be 1 or 2");

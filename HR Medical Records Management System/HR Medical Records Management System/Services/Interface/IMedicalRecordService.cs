@@ -4,8 +4,8 @@ using HR_Medical_Records_Management_System.Responses;
 
 namespace HR_Medical_Records_Management_System.Services.Interface
 {
-    public interface IMedicalRecordService : IBaseService<BaseResponse<TMedicalRecord>,int, PostMedicalRecordDto, UpdateMedicalRecordDto, DeleteMedicalRecordDto>
+    public interface IMedicalRecordService : IBaseService<TMedicalRecord,int, PostMedicalRecordDto, UpdateMedicalRecordDto, DeleteMedicalRecordDto,MedicalRecordsFiltersDto>
     {
-        Task<BaseResponse<TMedicalRecord>> GetMedicalRecordsFiltered(MedicalRecordsFiltersDto filtersDto);
+
     }
 }

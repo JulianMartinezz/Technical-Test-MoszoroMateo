@@ -50,18 +50,11 @@ namespace HR_Medical_Records_Management_System.Controllers
             return Ok(await _medicalRecordService.DeleteAsync(record));
         }
 
-        //this endpoint is used to get all the medical records
-        [HttpGet("getRecords")]
-        public async Task<ActionResult<BaseResponse<TMedicalRecord>>> GetMedicalRecords()
-        {
-            return Ok(await _medicalRecordService.GetListAsync());
-        }
-
         //this endpoint is used to get all the medical records filtered
-        [HttpPost("getFilteredRecords")]
-        public async Task<ActionResult<BaseResponse<TMedicalRecord>>> GetFilteredMedicalRecords([FromBody] MedicalRecordsFiltersDto filter)
+        [HttpGet("getFilteredRecords")]
+        public async Task<ActionResult<BaseResponse<List<TMedicalRecord>>>> GetFilteredMedicalRecords([FromQuery] MedicalRecordsFiltersDto filter)
         {
-            return Ok(await _medicalRecordService.GetMedicalRecordsFiltered(filter));
+            return Ok(await _medicalRecordService.GetFilteredListAsync(filter));
         }
 
 
