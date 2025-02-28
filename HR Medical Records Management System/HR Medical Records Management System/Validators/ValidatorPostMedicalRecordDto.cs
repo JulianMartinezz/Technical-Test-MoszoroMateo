@@ -12,14 +12,12 @@ namespace HR_Medical_Records_Management_System.Validators
             //and ensure that it is not null, not empty and is higher than 0
             RuleFor(dto=>dto.FileId)
                 .NotNull().WithMessage("File ID must not be null")
-                .NotEmpty().WithMessage("File ID must not be null")
                 .NotEqual(0).WithMessage("File Id must be higher than 0");
 
 
             //and ensure that it is not null, not empty and does not exceed the maximum number of characters allowed
             RuleFor(dto=>dto.Diagnosis)
                 .NotNull().WithMessage("Diagnosis must not be null")
-                .NotEmpty().WithMessage("Diagnosis must not be null")
                 .MaximumLength(100).WithMessage("has exceeded the maximum number of characters allowed");
 
 
@@ -31,7 +29,7 @@ namespace HR_Medical_Records_Management_System.Validators
 
             //ensure that it is not null
             RuleFor(dto => dto.CreatedBy)
-                .NotEmpty().WithMessage("CreatedBy must not be null");
+                .NotNull().WithMessage("CreatedBy must not be null");
 
  
             //ensure that it is not null and is not a future date and is less than or equal to the EndDate
