@@ -8,7 +8,11 @@ using HR_Medical_Records_Management_System.Validators;
 
 namespace HR_Medical_Records_Management_System.Services.Implementation
 {
-    //Service that will be used to manage the Medical Records
+    /// <summary>
+    /// Service implementation for managing medical records.
+    /// This service provides methods for creating, updating, deleting, and retrieving medical records.
+    /// It also validates the input data using various DTO validators before performing any actions.
+    /// </summary>
     public class MedicalRecordServiceImpl : IMedicalRecordService
     {
         //Objects that will be used to interact with the Service
@@ -32,6 +36,14 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
             _mapper = mapper;
         }
 
+
+        /// <summary>
+        /// Deletes a medical record from the database with a soft delete mechanism, 
+        /// marking the record as deleted instead of physically removing it.
+        /// Validates the provided delete DTO and handles any errors that might occur during the deletion process.
+        /// </summary>
+        /// <param name="deleteDto">The data transfer object containing the information of the medical record to be deleted.</param>
+        /// <returns>Returns a <see cref="BaseResponse{TMedicalRecord}"/> with the status of the deletion process.</returns>
         public async Task<BaseResponse<TMedicalRecord>> DeleteAsync(DeleteMedicalRecordDto deleteDto)
         {
             var validate = _DeleteValidator.Validate(deleteDto);
@@ -52,8 +64,8 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
 
             try
             {
-                _mapper.Map(deleteDto, deleted);
-                return BaseResponse<TMedicalRecord>.SuccessResponse(deleted, 1);
+                TMedicalRecord data = await _medicalRecordRepository.DeleteAsync(_mapper.Map(deleteDto, deleted));
+                return BaseResponse<TMedicalRecord>.SuccessResponse(data, 1);
             }
             catch (Exception e)
             {
@@ -63,7 +75,12 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
 
 
         }
-
+        /// <summary>
+        /// Retrieves a medical record by its unique identifier.
+        /// Validates the provided ID and handles any errors that may arise during retrieval.
+        /// </summary>
+        /// <param name="id">The unique identifier of the medical record to retrieve.</param>
+        /// <returns>Returns a <see cref="BaseResponse{TMedicalRecord}"/> with the requested medical record, or a not found error if not found.</returns>
         public async Task<BaseResponse<TMedicalRecord>> GetByIdAsync(int id)
         {
             if(id == 0)
@@ -86,6 +103,13 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
             }
         }
 
+
+        /// <summary>
+        /// Retrieves a list of medical records based on the provided filters.
+        /// Validates the filters and handles any errors during the filtering process.
+        /// </summary>
+        /// <param name="filters">The filter criteria used to query medical records.</param>
+        /// <returns>Returns a <see cref="BaseResponse{List{TMedicalRecord}}"/> with the filtered medical records and the total count.</returns>
         public async Task<BaseResponse<List<TMedicalRecord>>> GetFilteredListAsync(MedicalRecordsFiltersDto filters)
         {
             var validate = _FilterValidator.Validate(filters);
@@ -96,7 +120,7 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
 
             try
             {
-                var data = await _medicalRecordRepository.GetMedicalRecordsWithFiltersAsync(filters);
+                var data = await _medicalRecordRepository.GetFilteredListAsync(filters);
 
                 return BaseResponse<List<TMedicalRecord>>.SuccessResponse(data.Item1, data.Item2);
             }
@@ -106,6 +130,13 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
             }
         }
 
+
+        /// <summary>
+        /// Creates a new medical record in the database.
+        /// Validates the provided DTO and handles any errors during the creation process.
+        /// </summary>
+        /// <param name="createDto">The data transfer object containing the information of the new medical record.</param>
+        /// <returns>Returns a <see cref="BaseResponse{TMedicalRecord}"/> with the created medical record.</returns>
         public async Task<BaseResponse<TMedicalRecord>> PostAsync(PostMedicalRecordDto createDto)
         {
             var validate = _PostValidator.Validate(createDto);
@@ -117,8 +148,6 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
             try
             {
                 TMedicalRecord data = await _medicalRecordRepository.CreateAsync(_mapper.Map<TMedicalRecord>(createDto));
-
-
                 return BaseResponse<TMedicalRecord>.SuccessResponse(data, 1);
             }
             catch(Exception e)
@@ -128,7 +157,12 @@ namespace HR_Medical_Records_Management_System.Services.Implementation
         }
 
 
-
+        /// <summary>
+        /// Updates an existing medical record in the database.
+        /// Validates the provided DTO and handles any errors during the update process.
+        /// </summary>
+        /// <param name="updateDto">The data transfer object containing the updated information of the medical record.</param>
+        /// <returns>Returns a <see cref="BaseResponse{TMedicalRecord}"/> with the updated medical record.</returns>
         public async Task<BaseResponse<TMedicalRecord>> PutAsync(UpdateMedicalRecordDto updateDto)
         {
             var validate = _UpdateValidator.Validate(updateDto);
