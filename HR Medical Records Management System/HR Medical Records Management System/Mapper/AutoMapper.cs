@@ -20,14 +20,16 @@ namespace HR_Medical_Records_Management_System.Mapper
             //setting the CreationDate to the current date and the StatusId to 1
             CreateMap<PostMedicalRecordDto, TMedicalRecord>()
                 .ForMember(dest=>dest.CreationDate, opt=>opt.MapFrom(src=>DateOnly.FromDateTime(DateTime.UtcNow)))
-                .ForMember(dest=>dest.StatusId, opt=>opt.MapFrom(src=>1));
+                .ForMember(dest=>dest.StatusId, opt=>opt.MapFrom(src=>1))
+                .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
 
             //Map that will be used to map the UpdateMedicalRecordDto to the TMedicalRecord
             //setting the ModificationDate to the current date
             //ignoring the MedicalRecordId
             CreateMap<UpdateMedicalRecordDto, TMedicalRecord>()
                 .ForMember(dest=>dest.ModificationDate, opt=>opt.MapFrom(src=>DateOnly.FromDateTime(DateTime.UtcNow)))
-                .ForMember(dest => dest.MedicalRecordId, opt => opt.Ignore());
+                .ForMember(dest => dest.MedicalRecordId, opt => opt.Ignore())
+                .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
         }
     }
 }

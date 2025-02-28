@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using HR_Medical_Records_Management_System.Configs;
 using HR_Medical_Records_Management_System.Context;
 using HR_Medical_Records_Management_System.Dtos.Request;
 using HR_Medical_Records_Management_System.Models;
@@ -14,10 +15,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+//add a JsonConverter to handle DateOnly
+builder.Services.AddControllers()
+    .AddJsonOptions(opt =>
+    {
+        opt.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(opt =>
+{
+    opt.SchemaFilter<DateOnlySchemaFilter>();
+});
 
 
 //scopes 
@@ -50,6 +59,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(options =>
+{
+    options.AllowAnyHeader();
+    options.AllowAnyOrigin();
+    options.AllowAnyMethod();
+});
 
 app.UseHttpsRedirection();
 
