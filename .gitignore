@@ -26,10 +26,6 @@ packages/
 # Archivos de configuración de VS Code
 .vscode/
 
-# Archivos de configuración de Docker
-docker-compose.yml
-docker-compose.override.yml
-Dockerfile
 
 # Archivos de configuración de Rider
 .idea/
