@@ -7,16 +7,17 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v3
+
     - name: Setup .NET 8
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
+
     - name: Find solution file
       id: find-sln
       run: |
@@ -28,7 +29,9 @@ jobs:
         fi
         echo "Archivo de solución encontrado: $FILE"
         echo "sln-path=$FILE" >> $GITHUB_ENV
+
     - name: Restore dependencies
-      run: dotnet restore ${{ env.sln-path }}
+      run: dotnet restore "${{ env.sln-path }}"
+
     - name: Build the project
-      run: dotnet build --no-restore ${{ env.sln-path }}
+      run: dotnet build --no-restore "${{ env.sln-path }}"
