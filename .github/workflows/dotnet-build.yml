@@ -17,7 +17,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
-<<<<<<< HEAD
     - name: Find solution file
       id: find-sln
       run: |
@@ -33,9 +32,3 @@ jobs:
       run: dotnet restore ${{ env.sln-path }}
     - name: Build the project
       run: dotnet build --no-restore ${{ env.sln-path }}
-=======
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build the project
-      run: dotnet build --no-restore
->>>>>>> 572aaf9b82d49cd8c386f576e0dc46aff71f645c
